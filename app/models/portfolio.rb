@@ -1,5 +1,5 @@
 class Portfolio < ApplicationRecord
-
+	include Placeholder
 	validates_presence_of :title, :body, :main_image, :thumb_image
 
 
@@ -15,7 +15,7 @@ class Portfolio < ApplicationRecord
 	after_initialize :set_defaults #-> rails callback
 
 	def set_defaults
-		self.main_image  ||= "https://placehold.it/600x400" #-> ||= -> will set a image if the value is nil
-		self.thunb_image ||= "https://placehold.it/350x150" #-> ||= -> will set a image if the value is nil
+		self.main_image  ||= Placeholder.image_generator(height: '600',width: '400') #-> ||= -> will set a image if the value is nil
+		self.thumb_image ||= Placeholder.image_generator(height: '350',width: '200') #-> ||= -> will set a image if the value is nil
 	end
 end
